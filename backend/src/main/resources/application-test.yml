@@ -1,0 +1,39 @@
+# In memory database for testing purpose
+spring:
+  aop:
+    auto: true
+  # New Syntax for specificying plaform
+  sql:
+    init:
+      platform: h2
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    # Fixes table not found error in Spring boot 2.4+
+    # Ensures data.sql is executed after initilzing hibernate
+    defer-datasource-initialization: true
+logging:
+  level:
+    # Info level for all java logs
+    ROOT: info
+    # debug leavel for all user defined classes log
+    com.gagan: debug
+    org.hibernate.SQL: debug
+  # file:
+  #   name: ./src/main/resources/logfile-test.log
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
